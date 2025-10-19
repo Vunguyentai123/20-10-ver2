@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/heart.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ngày Phụ Nữ Việt Nam 20/10</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+      <source src="/music-ver2.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Try to play music when user interacts with the page
+      const bgMusic = document.getElementById('bgMusic');
+      const playMusic = () => {
+        bgMusic.play().catch(e => console.log('Audio play failed:', e));
+      };
+      
+      // Try to play on load
+      document.addEventListener('DOMContentLoaded', playMusic);
+      
+      // Also try on any user interaction
+      document.addEventListener('click', playMusic, { once: true });
+      document.addEventListener('touchstart', playMusic, { once: true });
+    </script>
+  </body>
+</html>
+// npm run dev -- -- host
+// cd "$env:USERPROFILE\ngrok"; .\ngrok.exe http 5173
