@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/20-10-ver2/heart.svg?v=1" />
+    <link rel="shortcut icon" type="image/svg+xml" href="/20-10-ver2/heart.svg?v=1" />
+    <link rel="apple-touch-icon" href="/20-10-ver2/heart.svg?v=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ec4899" />
+    <meta name="description" content="Chúc mừng ngày Phụ nữ Việt Nam 20/10 - Gửi lời chúc yêu thương đến em" />
+    <title>Ánh Dương 20/10</title>
+    <script type="module" crossorigin src="/20-10-ver2/assets/index-a424def8.js"></script>
+    <link rel="stylesheet" href="/20-10-ver2/assets/index-ff4093dc.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+      <source src="/20-10-ver2/music-ver2.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    
+    <script>
+      // Try to play music when user interacts with the page
+      const bgMusic = document.getElementById('bgMusic');
+      const playMusic = () => {
+        bgMusic.play().catch(e => console.log('Audio play failed:', e));
+      };
+      
+      // Try to play on load
+      document.addEventListener('DOMContentLoaded', playMusic);
+      
+      // Also try on any user interaction
+      document.addEventListener('click', playMusic, { once: true });
+      document.addEventListener('touchstart', playMusic, { once: true });
+    </script>
+  </body>
+</html>
+<!-- npm run dev -- -- host -->
+<!-- cd "$env:USERPROFILE\ngrok"; .\ngrok.exe http 5173 -->
