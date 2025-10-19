@@ -12,10 +12,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 flex items-center justify-center overflow-hidden relative">
-      {/* Falling petals background - all pages */}
       <FallingPetals />
 
-      {/* Main content */}
       <div className="relative z-10 text-center px-4 max-w-4xl w-full">
         {currentPage === 'heart' && (
           <HeartButton onClick={() => setCurrentPage('letter')} />

@@ -44,7 +44,6 @@ const GreetingContent = ({ onLetterClick }: GreetingContentProps) => {
       <div className="flex-1 max-w-3xl flex flex-col justify-center space-y-3">
         <div className="mb-4 flex items-center gap-4">
           <h1 className="text-3xl md:text-4xl font-black text-white drop-shadow-2xl">Ngày Phụ Nữ Việt Nam</h1>
-          {/* Letter icon with notification badge */}
           <button 
             onClick={onLetterClick}
             className="relative cursor-pointer hover:scale-110 transition-transform duration-300"
@@ -59,7 +58,6 @@ const GreetingContent = ({ onLetterClick }: GreetingContentProps) => {
               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
               <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
             </svg>
-            {/* Notification badge */}
             <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white animate-pulse">
               1
             </span>

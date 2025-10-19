@@ -16,7 +16,6 @@ const SuccessPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      {/* Main Heart */}
       <div 
         className="relative"
         style={{
@@ -25,10 +24,8 @@ const SuccessPage = () => {
           opacity: visible ? 1 : 0,
         }}
       >
-        {/* Glow effect */}
         <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-pink-500 via-red-500 to-rose-500 opacity-60 animate-pulse"></div>
         
-        {/* Main heart */}
         <svg 
           className="relative w-64 h-64 drop-shadow-2xl" 
           viewBox="0 0 24 24" 
@@ -50,14 +47,12 @@ const SuccessPage = () => {
           </defs>
         </svg>
 
-        {/* Sparkles around heart */}
         <div className="absolute top-0 left-0 text-4xl animate-bounce" style={{ animationDelay: '0s', animationDuration: '2s' }}>✨</div>
         <div className="absolute top-0 right-0 text-4xl animate-bounce" style={{ animationDelay: '0.2s', animationDuration: '2s' }}>✨</div>
         <div className="absolute bottom-0 left-0 text-4xl animate-bounce" style={{ animationDelay: '0.4s', animationDuration: '2s' }}>✨</div>
         <div className="absolute bottom-0 right-0 text-4xl animate-bounce" style={{ animationDelay: '0.6s', animationDuration: '2s' }}>✨</div>
       </div>
 
-      {/* Success Message */}
       <div 
         className="mt-12 text-center"
         style={{
@@ -72,7 +67,6 @@ const SuccessPage = () => {
         
       </div>
 
-      {/* Floating hearts */}
       {heartsVisible && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(20)].map((_, i) => (
@@ -92,7 +86,6 @@ const SuccessPage = () => {
         </div>
       )}
 
-      {/* Confetti effect using emoji */}
       {heartsVisible && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(30)].map((_, i) => (

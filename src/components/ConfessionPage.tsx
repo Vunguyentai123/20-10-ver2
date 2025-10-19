@@ -11,33 +11,15 @@ const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
   const [acceptClicks, setAcceptClicks] = useState(0);
   const [noClicks, setNoClicks] = useState(0);
 
-  // Function to send data to server
   const sendClickDataToServer = async (buttonType: 'accept' | 'no', count: number) => {
     try {
-      // Log to console (thay thế bằng API call thực tế)
       console.log(`Button "${buttonType}" clicked ${count} times`);
-      
-      // Ví dụ gửi về server (uncomment khi có API):
-      /*
-      await fetch('https://your-api.com/clicks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          buttonType,
-          clickCount: count,
-          timestamp: new Date().toISOString()
-        })
-      });
-      */
     } catch (error) {
       console.error('Error sending click data:', error);
     }
   };
 
   useEffect(() => {
-    // Sau 1 giây hiện text và buttons
     const timer = setTimeout(() => {
       setTextVisible(true);
       setShowButtons(true);
@@ -49,32 +31,26 @@ const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
   const handleNoClick = (e: React.MouseEvent) => {
     e.preventDefault();
     
-    // Tăng số lần click "Em không đồng ý"
     const newNoClicks = noClicks + 1;
     setNoClicks(newNoClicks);
     sendClickDataToServer('no', newNoClicks);
     
-    // Kích thước các elements
     const buttonWidth = 220;
     const buttonHeight = 70;
-    const textHeight = 200; // Ước tính chiều cao của text
+    const textHeight = 200;
     const acceptButtonWidth = 170;
     const acceptButtonHeight = 70;
     
-    // Vị trí trung tâm màn hình
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
     
-    // Vùng cấm
     const margin = 30;
     
-    // Vùng của text (ở giữa màn hình)
     const textLeft = centerX - 400 - margin;
     const textRight = centerX + 400 + margin;
     const textTop = centerY - textHeight / 2 - margin;
     const textBottom = centerY + textHeight / 2 + margin;
     
-    // Vùng của button "Em đồng ý" (bên trái, dưới text)
     const acceptButtonLeft = centerX - acceptButtonWidth - 40 - margin;
     const acceptButtonRight = centerX - 40 + margin;
     const acceptButtonTop = centerY + 128 - margin;
@@ -95,7 +71,6 @@ const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
       const noButtonTop = newY;
       const noButtonBottom = newY + buttonHeight;
       
-      // Kiểm tra va chạm với text
       const overlapWithText = !(
         noButtonRight < textLeft ||
         noButtonLeft > textRight ||
@@ -103,7 +78,6 @@ const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
         noButtonTop > textBottom
       );
       
-      // Kiểm tra va chạm với button "Em đồng ý"
       const overlapWithAcceptButton = !(
         noButtonRight < acceptButtonLeft ||
         noButtonLeft > acceptButtonRight ||

@@ -1,14 +1,12 @@
 const FallingPetals = () => {
-  // Tạo nhiều hoa hơn và phân bổ đều
   const flowers = ['🌸', '🌺', '🌷', '💐', '🌹', '💮', '🏵️'];
-  const numberOfFlowers = 60; // Tăng gấp đôi
+  const numberOfFlowers = 60;
   
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {[...Array(numberOfFlowers)].map((_, i) => {
-        // Phân bổ đều theo cột để tránh bị trống
         const column = (i / numberOfFlowers) * 100;
-        const randomOffset = (Math.random() - 0.5) * 30; // Random offset trong khoảng ±15%
+        const randomOffset = (Math.random() - 0.5) * 30;
         
         return (
           <div
@@ -24,7 +22,7 @@ const FallingPetals = () => {
             <div 
               className="opacity-70"
               style={{
-                fontSize: `${20 + Math.random() * 20}px`, // Kích thước ngẫu nhiên 20-40px
+                fontSize: `${20 + Math.random() * 20}px`,
               }}
             >
               {flowers[Math.floor(Math.random() * flowers.length)]}

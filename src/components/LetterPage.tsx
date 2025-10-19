@@ -10,7 +10,6 @@ const LetterPage = ({ onReadLetter }: LetterPageProps) => {
   const [noButtonPosition, setNoButtonPosition] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
-    // Sau 2 giây thư dừng lại và hiện buttons
     const timer = setTimeout(() => {
       setLetterFalling(false);
       setShowButtons(true);
@@ -22,52 +21,42 @@ const LetterPage = ({ onReadLetter }: LetterPageProps) => {
   const handleNoClick = (e: React.MouseEvent) => {
     e.preventDefault();
     
-    // Kích thước các elements
-    const buttonWidth = 220; // Tăng lên vì button có text dài hơn
+    const buttonWidth = 220;
     const buttonHeight = 70;
-    const letterSize = 150; // Kích thước lá thư + padding
-    const readButtonWidth = 170; // Độ rộng thực tế của button "Đọc thư"
+    const letterSize = 150;
+    const readButtonWidth = 170;
     const readButtonHeight = 70;
     
-    // Vị trí trung tâm màn hình
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
     
-    // Vùng cấm (letter + button đọc thư) với margin thêm để không chạm
-    const margin = 30; // Khoảng cách tối thiểu giữa các elements
+    const margin = 30;
     
-    // Vùng của lá thư (ở giữa màn hình)
     const letterLeft = centerX - letterSize / 2 - margin;
     const letterRight = centerX + letterSize / 2 + margin;
     const letterTop = centerY - letterSize / 2 - margin;
     const letterBottom = centerY + letterSize / 2 + margin;
     
-    // Vùng của button "Đọc thư" (bên trái, dưới lá thư)
-    // CSS: left: 50%, transform: translate(calc(-100% - 40px), 128px)
-    // Vị trí thực tế: centerX - readButtonWidth - 40 (cạnh trái), centerY + 128 (center của button)
     const readButtonLeft = centerX - readButtonWidth - 40 - margin;
     const readButtonRight = centerX - 40 + margin;
-    const readButtonTop = centerY + 128 - margin; // 128px từ center Y
-      const readButtonBottom = centerY + 128 + readButtonHeight + margin;
+    const readButtonTop = centerY + 128 - margin;
+    const readButtonBottom = centerY + 128 + readButtonHeight + margin;
     
     let newX, newY;
     let attempts = 0;
     const maxAttempts = 100;
     
     do {
-      // Tạo vị trí ngẫu nhiên trong màn hình
       newX = Math.random() * (window.innerWidth - buttonWidth - 40) + 20;
       newY = Math.random() * (window.innerHeight - buttonHeight - 40) + 20;
       
       attempts++;
       
-      // Tính toán vùng của button "Không đọc" ở vị trí mới
       const noButtonLeft = newX;
       const noButtonRight = newX + buttonWidth;
       const noButtonTop = newY;
       const noButtonBottom = newY + buttonHeight;
       
-      // Kiểm tra va chạm với lá thư
       const overlapWithLetter = !(
         noButtonRight < letterLeft ||
         noButtonLeft > letterRight ||
@@ -75,7 +64,6 @@ const LetterPage = ({ onReadLetter }: LetterPageProps) => {
         noButtonTop > letterBottom
       );
       
-      // Kiểm tra va chạm với button "Đọc thư"
       const overlapWithReadButton = !(
         noButtonRight < readButtonLeft ||
         noButtonLeft > readButtonRight ||

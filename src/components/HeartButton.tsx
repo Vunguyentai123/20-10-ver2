@@ -8,11 +8,8 @@ const HeartButton = ({ onClick }: HeartButtonProps) => {
       onClick={onClick}
       className="group relative inline-block cursor-pointer"
     >
-      {/* Container for hearts and text */}
       <div className="relative flex items-center justify-center gap-0">
-        {/* Left Heart - moves left on hover and overlaps box */}
         <div className="relative z-10 transition-all duration-[1500ms] ease-in-out group-hover:-translate-x-16">
-          {/* Glow effect for left heart */}
           <div className="absolute -inset-4 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition duration-[1500ms] animate-pulse"></div>
           
           <svg 
@@ -35,7 +32,6 @@ const HeartButton = ({ onClick }: HeartButtonProps) => {
           </svg>
         </div>
 
-        {/* Text box with form/frame - higher z-index so text is above hearts */}
         <div className="relative z-20 overflow-hidden transition-all duration-[1500ms] ease-in-out opacity-0 max-w-0 group-hover:opacity-100 group-hover:max-w-xs -mx-8">
           <div className="bg-white/95 backdrop-blur-sm px-10 py-4 rounded-2xl border-4 border-pink-500 shadow-2xl whitespace-nowrap">
             <span className="relative z-30 text-3xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-shimmer">
