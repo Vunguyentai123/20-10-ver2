@@ -47,36 +47,38 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 flex items-center justify-center overflow-hidden relative">
+    <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 flex items-center justify-center overflow-x-hidden relative">
       <FallingPetals />
 
-      <div className="relative z-10 text-center px-4 max-w-4xl w-full">
-        {currentPage === 'heart' && (
-          <HeartButton onClick={() => navigateTo('letter')} />
-        )}
-        
-        {currentPage === 'letter' && (
-          <LetterPage onReadLetter={() => navigateTo('greeting')} />
-        )}
-        
-        {currentPage === 'greeting' && (
-          <GreetingContent onLetterClick={() => navigateTo('confession')} />
-        )}
-        
-        {currentPage === 'confession' && (
-          <ConfessionPage 
-            onAccept={() => navigateTo('success')}
-            onWait={() => navigateTo('waiting')}
-          />
-        )}
-        
-        {currentPage === 'success' && (
-          <SuccessPage />
-        )}
-        
-        {currentPage === 'waiting' && (
-          <WaitingPage />
-        )}
+      <div className="relative z-10 text-center px-4 py-8 w-full max-w-4xl min-h-screen flex items-center justify-center">
+        <div className="w-full">
+          {currentPage === 'heart' && (
+            <HeartButton onClick={() => navigateTo('letter')} />
+          )}
+          
+          {currentPage === 'letter' && (
+            <LetterPage onReadLetter={() => navigateTo('greeting')} />
+          )}
+          
+          {currentPage === 'greeting' && (
+            <GreetingContent onLetterClick={() => navigateTo('confession')} />
+          )}
+          
+          {currentPage === 'confession' && (
+            <ConfessionPage 
+              onAccept={() => navigateTo('success')}
+              onWait={() => navigateTo('waiting')}
+            />
+          )}
+          
+          {currentPage === 'success' && (
+            <SuccessPage />
+          )}
+          
+          {currentPage === 'waiting' && (
+            <WaitingPage />
+          )}
+        </div>
       </div>
 
       <style>{animationStyles}</style>

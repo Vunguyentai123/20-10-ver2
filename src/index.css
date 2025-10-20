@@ -11,9 +11,30 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Allow vertical scroll on mobile */
+  overflow-y: auto;
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
+  /* Allow content to expand beyond viewport on mobile */
+  min-height: -webkit-fill-available;
+}
+
+/* Mobile viewport height fix */
+@supports (-webkit-touch-callout: none) {
+  #root {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Fade in animation for buttons */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

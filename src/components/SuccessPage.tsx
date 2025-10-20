@@ -15,7 +15,7 @@ const SuccessPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen py-8 px-4">
       <div 
         className="relative"
         style={{
@@ -27,7 +27,7 @@ const SuccessPage = () => {
         <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-pink-500 via-red-500 to-rose-500 opacity-60 animate-pulse"></div>
         
         <svg 
-          className="relative w-64 h-64 drop-shadow-2xl" 
+          className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 drop-shadow-2xl" 
           viewBox="0 0 24 24" 
           fill="none"
           style={{
@@ -47,21 +47,21 @@ const SuccessPage = () => {
           </defs>
         </svg>
 
-        <div className="absolute top-0 left-0 text-4xl animate-bounce" style={{ animationDelay: '0s', animationDuration: '2s' }}>✨</div>
-        <div className="absolute top-0 right-0 text-4xl animate-bounce" style={{ animationDelay: '0.2s', animationDuration: '2s' }}>✨</div>
-        <div className="absolute bottom-0 left-0 text-4xl animate-bounce" style={{ animationDelay: '0.4s', animationDuration: '2s' }}>✨</div>
-        <div className="absolute bottom-0 right-0 text-4xl animate-bounce" style={{ animationDelay: '0.6s', animationDuration: '2s' }}>✨</div>
+        <div className="absolute top-0 left-0 text-2xl sm:text-3xl md:text-4xl animate-bounce" style={{ animationDelay: '0s', animationDuration: '2s' }}>✨</div>
+        <div className="absolute top-0 right-0 text-2xl sm:text-3xl md:text-4xl animate-bounce" style={{ animationDelay: '0.2s', animationDuration: '2s' }}>✨</div>
+        <div className="absolute bottom-0 left-0 text-2xl sm:text-3xl md:text-4xl animate-bounce" style={{ animationDelay: '0.4s', animationDuration: '2s' }}>✨</div>
+        <div className="absolute bottom-0 right-0 text-2xl sm:text-3xl md:text-4xl animate-bounce" style={{ animationDelay: '0.6s', animationDuration: '2s' }}>✨</div>
       </div>
 
       <div 
-        className="mt-12 text-center"
+        className="mt-8 sm:mt-12 text-center px-4"
         style={{
           transform: visible ? 'translateY(0)' : 'translateY(50px)',
           transition: 'all 1s ease-out 0.5s',
           opacity: visible ? 1 : 0,
         }}
       >
-        <h1 className="text-5xl md:text-6xl font-black text-white drop-shadow-2xl mb-4">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white drop-shadow-2xl mb-4 leading-relaxed">
           🎉 Cảm ơn em đã cho anh cơ hội yêu em 🎉
         </h1>
         

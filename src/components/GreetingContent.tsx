@@ -24,8 +24,14 @@ const GreetingContent = ({ onLetterClick }: GreetingContentProps) => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center gap-12 px-4 w-full max-w-7xl h-screen">
-      <div className="hidden md:flex flex-col items-center justify-center flex-shrink-0 w-64 h-screen">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 px-4 w-full max-w-7xl min-h-screen py-8">
+      {/* Mobile: Show 20/10 at top */}
+      <div className="flex md:hidden flex-col items-center mb-4">
+        <div className="text-5xl font-black text-white/80 drop-shadow-lg animate-pulse">20/10</div>
+        <div className="text-xl text-white/70 font-semibold mt-2">🦋 ✨ 🦋</div>
+      </div>
+
+      <div className="hidden md:flex flex-col items-center justify-center flex-shrink-0 w-64">
         <div className="relative flex items-center justify-center">
           <div className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30 blur-3xl animate-pulse"></div>
           <div className="relative bg-white/10 backdrop-blur-sm rounded-full p-10 border-4 border-white/30 shadow-2xl flex items-center justify-center">
@@ -41,12 +47,12 @@ const GreetingContent = ({ onLetterClick }: GreetingContentProps) => {
         <div className="mt-8 text-6xl font-black text-white/80 drop-shadow-lg animate-pulse">20/10</div>
         <div className="text-2xl text-white/70 font-semibold mt-3">🦋 ✨ 🦋</div>
       </div>
-      <div className="flex-1 max-w-3xl flex flex-col justify-center space-y-3">
-        <div className="mb-4 flex items-center gap-4">
-          <h1 className="text-3xl md:text-4xl font-black text-white drop-shadow-2xl">Ngày Phụ Nữ Việt Nam</h1>
+      <div className="flex-1 max-w-3xl flex flex-col justify-center space-y-3 w-full">
+        <div className="mb-4 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-3 sm:gap-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow-2xl text-center sm:text-left">Ngày Phụ Nữ Việt Nam</h1>
           <button 
             onClick={onLetterClick}
-            className="relative cursor-pointer hover:scale-110 transition-transform duration-300"
+            className="relative cursor-pointer hover:scale-110 transition-transform duration-300 flex-shrink-0"
             aria-label="Đọc tin nhắn mới"
           >
             <svg 
@@ -76,7 +82,7 @@ const GreetingContent = ({ onLetterClick }: GreetingContentProps) => {
               }}
             >
               {line.isFirst ? (
-                <div className="text-lg md:text-xl font-bold text-white drop-shadow-lg leading-relaxed whitespace-nowrap relative">
+                <div className="text-base sm:text-lg md:text-xl font-bold text-white drop-shadow-lg leading-relaxed whitespace-normal sm:whitespace-nowrap relative text-center sm:text-left">
                   {visibleLines > index ? (
                     <>
                       <span>Chúc </span>
@@ -96,7 +102,7 @@ const GreetingContent = ({ onLetterClick }: GreetingContentProps) => {
                   )}
                 </div>
               ) : (
-                <div className="text-lg md:text-xl font-bold text-white drop-shadow-lg leading-relaxed whitespace-nowrap">
+                <div className="text-base sm:text-lg md:text-xl font-bold text-white drop-shadow-lg leading-relaxed whitespace-normal sm:whitespace-nowrap text-center sm:text-left">
                   {visibleLines > index ? (
                     <span 
                       style={{

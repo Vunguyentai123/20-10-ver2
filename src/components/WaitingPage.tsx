@@ -15,7 +15,7 @@ const WaitingPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen py-8 px-4">
       <div 
         className="relative"
         style={{
@@ -27,7 +27,7 @@ const WaitingPage = () => {
         <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 opacity-60 animate-pulse"></div>
         
         <svg 
-          className="relative w-64 h-64 drop-shadow-2xl" 
+          className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 drop-shadow-2xl" 
           viewBox="0 0 200 200" 
           fill="none"
           style={{
@@ -114,63 +114,26 @@ const WaitingPage = () => {
           </defs>
         </svg>
 
-        <div className="absolute top-0 left-0 text-4xl animate-bounce" style={{ animationDelay: '0s', animationDuration: '2s' }}>⏰</div>
-        <div className="absolute top-0 right-0 text-4xl animate-bounce" style={{ animationDelay: '0.2s', animationDuration: '2s' }}>⏰</div>
-        <div className="absolute bottom-0 left-0 text-4xl animate-bounce" style={{ animationDelay: '0.4s', animationDuration: '2s' }}>⏰</div>
-        <div className="absolute bottom-0 right-0 text-4xl animate-bounce" style={{ animationDelay: '0.6s', animationDuration: '2s' }}>⏰</div>
+        <div className="absolute top-0 left-0 text-2xl sm:text-3xl md:text-4xl animate-bounce" style={{ animationDelay: '0s', animationDuration: '2s' }}>⏰</div>
+        <div className="absolute top-0 right-0 text-2xl sm:text-3xl md:text-4xl animate-bounce" style={{ animationDelay: '0.2s', animationDuration: '2s' }}>⏰</div>
+        <div className="absolute bottom-0 left-0 text-2xl sm:text-3xl md:text-4xl animate-bounce" style={{ animationDelay: '0.4s', animationDuration: '2s' }}>⏰</div>
+        <div className="absolute bottom-0 right-0 text-2xl sm:text-3xl md:text-4xl animate-bounce" style={{ animationDelay: '0.6s', animationDuration: '2s' }}>⏰</div>
       </div>
 
       <div 
-        className="mt-12 text-center px-4"
+        className="mt-8 sm:mt-12 text-center px-4"
         style={{
           transform: visible ? 'translateY(0)' : 'translateY(50px)',
           transition: 'all 1s ease-out 0.5s',
           opacity: visible ? 1 : 0,
         }}
       >
-        <h1 className="text-4xl md:text-5xl font-black text-white drop-shadow-2xl mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white drop-shadow-2xl mb-4 leading-relaxed">
           Anh sẽ đợi câu trả lời từ em 💙
         </h1>
       </div>
 
-      {particlesVisible && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute text-4xl opacity-80"
-              style={{
-                left: `${Math.random() * 100}%`,
-                bottom: '-10%',
-                animation: `floatUp ${3 + Math.random() * 4}s ease-in infinite`,
-                animationDelay: `${Math.random() * 2}s`,
-              }}
-            >
-              {['⏰', '⏳', '🕐', '🕑', '🕒', '💙', '💜'][Math.floor(Math.random() * 7)]}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {particlesVisible && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={`confetti-${i}`}
-              className="absolute text-2xl"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: '-5%',
-                animation: `fall ${2 + Math.random() * 3}s linear infinite`,
-                animationDelay: `${Math.random() * 3}s`,
-                transform: `rotate(${Math.random() * 360}deg)`,
-              }}
-            >
-              {['✨', '⭐', '💫', '🌟'][Math.floor(Math.random() * 4)]}
-            </div>
-          ))}
-        </div>
-      )}
+      
 
       <style>{`
         @keyframes floatUp {

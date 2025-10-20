@@ -29,6 +29,16 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Hide body overflow when this component mounts
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   const handleNoClick = (e: React.MouseEvent) => {
     e.preventDefault();
     
@@ -36,26 +46,66 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
     setNoClicks(newNoClicks);
     sendClickDataToServer('no', newNoClicks);
     
-    const buttonWidth = 220;
-    const buttonHeight = 70;
-    const textHeight = 200;
-    const acceptButtonWidth = 170;
-    const acceptButtonHeight = 70;
+    // Get ACTUAL button dimensions from the clicked button
+    const clickedButton = e.currentTarget as HTMLButtonElement;
+    const buttonRect = clickedButton.getBoundingClientRect();
+    const buttonWidth = buttonRect.width;
+    const buttonHeight = buttonRect.height;
     
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
+    const margin = 40;
     
-    const margin = 30;
+    // Get ACTUAL text position from DOM
+    const textElement = document.querySelector('h2');
+    let textLeft = 0;
+    let textRight = 0;
+    let textTop = 0;
+    let textBottom = 0;
     
-    const textLeft = centerX - 400 - margin;
-    const textRight = centerX + 400 + margin;
-    const textTop = centerY - textHeight / 2 - margin;
-    const textBottom = centerY + textHeight / 2 + margin;
+    if (textElement) {
+      const textRect = textElement.getBoundingClientRect();
+      textLeft = textRect.left - margin;
+      textRight = textRect.right + margin;
+      textTop = textRect.top - margin;
+      textBottom = textRect.bottom + margin;
+    }
     
-    const acceptButtonLeft = centerX - acceptButtonWidth - 40 - margin;
-    const acceptButtonRight = centerX - 40 + margin;
-    const acceptButtonTop = centerY + 128 - margin;
-    const acceptButtonBottom = centerY + 128 + acceptButtonHeight + margin;
+    // Get ACTUAL Accept button position from DOM
+    const acceptButton = Array.from(document.querySelectorAll('button')).find(
+      btn => btn.textContent?.includes('Em đồng ý') && btn !== clickedButton
+    );
+    let acceptButtonLeft = 0;
+    let acceptButtonRight = 0;
+    let acceptButtonTop = 0;
+    let acceptButtonBottom = 0;
+    let foundAcceptButton = false;
+    
+    if (acceptButton) {
+      const rect = acceptButton.getBoundingClientRect();
+      acceptButtonLeft = rect.left - margin;
+      acceptButtonRight = rect.right + margin;
+      acceptButtonTop = rect.top - margin;
+      acceptButtonBottom = rect.bottom + margin;
+      foundAcceptButton = true;
+    }
+    
+    // Get ACTUAL Time button position from DOM
+    const timeButton = Array.from(document.querySelectorAll('button')).find(
+      btn => btn.textContent?.includes('Em cần thời gian') && btn !== clickedButton
+    );
+    let timeButtonLeft = 0;
+    let timeButtonRight = 0;
+    let timeButtonTop = 0;
+    let timeButtonBottom = 0;
+    let foundTimeButton = false;
+    
+    if (timeButton) {
+      const rect = timeButton.getBoundingClientRect();
+      timeButtonLeft = rect.left - margin;
+      timeButtonRight = rect.right + margin;
+      timeButtonTop = rect.top - margin;
+      timeButtonBottom = rect.bottom + margin;
+      foundTimeButton = true;
+    }
     
     let newX, newY;
     let attempts = 0;
@@ -72,21 +122,31 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
       const noButtonTop = newY;
       const noButtonBottom = newY + buttonHeight;
       
-      const overlapWithText = !(
+      // Check overlap with text
+      const overlapWithText = textElement ? !(
         noButtonRight < textLeft ||
         noButtonLeft > textRight ||
         noButtonBottom < textTop ||
         noButtonTop > textBottom
-      );
+      ) : false;
       
-      const overlapWithAcceptButton = !(
+      // Check overlap with accept button
+      const overlapWithAcceptButton = foundAcceptButton ? !(
         noButtonRight < acceptButtonLeft ||
         noButtonLeft > acceptButtonRight ||
         noButtonBottom < acceptButtonTop ||
         noButtonTop > acceptButtonBottom
-      );
+      ) : false;
       
-      if (!overlapWithText && !overlapWithAcceptButton) {
+      // Check overlap with time button
+      const overlapWithTimeButton = foundTimeButton ? !(
+        noButtonRight < timeButtonLeft ||
+        noButtonLeft > timeButtonRight ||
+        noButtonBottom < timeButtonTop ||
+        noButtonTop > timeButtonBottom
+      ) : false;
+      
+      if (!overlapWithText && !overlapWithAcceptButton && !overlapWithTimeButton) {
         break;
       }
       
@@ -96,12 +156,12 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
   };
 
   return (
-    <>
+    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center">
       {/* Confession Text */}
       <div 
-        className="absolute top-1/2 left-1/2 z-50"
+        className="relative z-50 px-4 w-full max-w-2xl"
         style={{
-          transform: textVisible ? 'translate(-50%, -50%)' : 'translate(-50%, -40%)',
+          transform: textVisible ? 'translateY(0)' : 'translateY(-20px)',
           transition: 'all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
           opacity: textVisible ? 1 : 0,
         }}
@@ -109,7 +169,7 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
         <div className="relative">
           <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-pink-500/40 via-purple-500/40 to-rose-500/40 animate-pulse"></div>
           
-          <h2 className="relative text-4xl md:text-5xl font-black text-center leading-relaxed px-8"
+          <h2 className="relative text-2xl sm:text-3xl md:text-5xl font-black text-center leading-relaxed px-4 sm:px-8"
             style={{
               background: 'linear-gradient(90deg, #fff, #ffc0cb, #fff, #ffc0cb, #fff)',
               backgroundSize: '200% auto',
@@ -125,7 +185,7 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
           </h2>
         </div>
         
-        <div className="mt-6 flex justify-center gap-3 text-4xl">
+        <div className="mt-6 flex justify-center gap-2 sm:gap-3 text-3xl sm:text-4xl">
           {['💕', '💖', '💗', '💓', '💝'].map((heart, i) => (
             <span 
               key={i}
@@ -141,52 +201,61 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
             </span>
           ))}
         </div>
+
+        {/* Buttons Container - Now in relative flow below text */}
+        <div className="mt-12 sm:mt-16 flex flex-col items-center gap-4">
+          {/* Accept and Time buttons row */}
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 w-full">
+            {showButtons && (
+              <button
+                onClick={() => {
+                  const newAcceptClicks = acceptClicks + 1;
+                  setAcceptClicks(newAcceptClicks);
+                  sendClickDataToServer('accept', newAcceptClicks);
+                  onAccept();
+                }}
+                style={{
+                  opacity: showButtons ? 1 : 0,
+                  transition: 'opacity 0.5s ease-out 0.5s',
+                  pointerEvents: showButtons ? 'auto' : 'none'
+                }}
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-lg sm:text-xl font-bold rounded-full shadow-2xl hover:shadow-pink-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
+              >
+                💖 Em đồng ý
+              </button>
+            )}
+
+            {showButtons && (
+              <button
+                onClick={onWait}
+                style={{
+                  opacity: showButtons ? 1 : 0,
+                  transition: 'opacity 0.5s ease-out 0.7s',
+                  pointerEvents: showButtons ? 'auto' : 'none'
+                }}
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-400 to-indigo-500 text-white text-lg sm:text-xl font-bold rounded-full shadow-2xl hover:shadow-blue-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
+              >
+                ⏰ Em cần thời gian
+              </button>
+            )}
+          </div>
+
+          {/* No Button - Second row */}
+          {showButtons && !noButtonPosition && (
+            <button
+              onClick={handleNoClick}
+              style={{
+                opacity: showButtons ? 1 : 0,
+                transition: 'opacity 0.5s ease-out 0.5s',
+                pointerEvents: showButtons ? 'auto' : 'none'
+              }}
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-gray-400 to-gray-500 text-white text-lg sm:text-xl font-bold rounded-full shadow-2xl hover:shadow-gray-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
+            >
+              💔 Em không
+            </button>
+          )}
+        </div>
       </div>
-
-      {/* Accept Button (Left) - Always visible */}
-      {showButtons && (
-        <div
-          className="absolute top-1/2 left-1/2 z-40"
-          style={{
-            transform: 'translate(calc(-100% - 40px), 128px)',
-            opacity: showButtons ? 1 : 0,
-            transition: 'opacity 0.5s ease-out 0.5s',
-            pointerEvents: showButtons ? 'auto' : 'none'
-          }}
-        >
-          <button
-            onClick={() => {
-              const newAcceptClicks = acceptClicks + 1;
-              setAcceptClicks(newAcceptClicks);
-              sendClickDataToServer('accept', newAcceptClicks);
-              onAccept();
-            }}
-            className="px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-pink-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
-          >
-            💖 Em đồng ý
-          </button>
-        </div>
-      )}
-
-      {/* No Button (Right) - initial position */}
-      {showButtons && !noButtonPosition && (
-        <div
-          className="absolute top-1/2 left-1/2 z-40"
-          style={{
-            transform: 'translate(40px, 128px)',
-            opacity: showButtons ? 1 : 0,
-            transition: 'opacity 0.5s ease-out 0.5s',
-            pointerEvents: showButtons ? 'auto' : 'none'
-          }}
-        >
-          <button
-            onClick={handleNoClick}
-            className="px-8 py-4 bg-gradient-to-r from-gray-400 to-gray-500 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-gray-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
-          >
-            💔 Em không
-          </button>
-        </div>
-      )}
 
       {/* No Button - moves on click (flying position) */}
       {noButtonPosition && (
@@ -198,14 +267,14 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'scale(1)';
           }}
-          className="px-8 py-4 bg-gradient-to-r from-gray-400 to-gray-500 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-gray-300 transition-all duration-200 whitespace-nowrap"
+          className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-gray-400 to-gray-500 text-white text-lg sm:text-xl font-bold rounded-full shadow-2xl hover:shadow-gray-300 transition-all duration-200 whitespace-nowrap"
           style={{
             position: 'fixed',
             left: `${noButtonPosition.x}px`,
             top: `${noButtonPosition.y}px`,
             transform: 'scale(1)',
-            zIndex: 10,
-            minWidth: '200px',
+            zIndex: 50,
+            minWidth: '150px',
             width: 'auto',
             display: 'inline-flex',
             alignItems: 'center',
@@ -214,26 +283,6 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
         >
           💔 Em không
         </button>
-      )}
-
-      {/* Time Button (Center Bottom) - below the two buttons */}
-      {showButtons && (
-        <div
-          className="absolute top-1/2 left-1/2 z-40"
-          style={{
-            transform: 'translate(-50%, 210px)',
-            opacity: showButtons ? 1 : 0,
-            transition: 'opacity 0.5s ease-out 0.7s',
-            pointerEvents: showButtons ? 'auto' : 'none'
-          }}
-        >
-          <button
-            onClick={onWait}
-            className="px-8 py-4 bg-gradient-to-r from-blue-400 to-indigo-500 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-blue-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
-          >
-            ⏰ Em cần thời gian
-          </button>
-        </div>
       )}
 
       <style>{`
@@ -270,7 +319,7 @@ const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
           }
         }
       `}</style>
-    </>
+    </div>
   );
 };
 
