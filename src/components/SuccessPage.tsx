@@ -62,7 +62,7 @@ const SuccessPage = () => {
         }}
       >
         <h1 className="text-5xl md:text-6xl font-black text-white drop-shadow-2xl mb-4">
-          Yay! 🎉 Yay! 🎉 Yay! 🎉 
+          🎉 Cảm ơn em đã cho anh cơ hội yêu em 🎉
         </h1>
         
       </div>

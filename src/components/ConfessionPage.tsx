@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 
 interface ConfessionPageProps {
   onAccept: () => void;
+  onWait: () => void;
 }
 
-const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
+const ConfessionPage = ({ onAccept, onWait }: ConfessionPageProps) => {
   const [textVisible, setTextVisible] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
   const [noButtonPosition, setNoButtonPosition] = useState<{ x: number; y: number } | null>(null);
@@ -100,22 +101,45 @@ const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
       <div 
         className="absolute top-1/2 left-1/2 z-50"
         style={{
-          transform: 'translate(-50%, -50%)',
-          transition: 'all 1s ease-out',
+          transform: textVisible ? 'translate(-50%, -50%)' : 'translate(-50%, -40%)',
+          transition: 'all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
           opacity: textVisible ? 1 : 0,
-          scale: textVisible ? 1 : 0.8,
         }}
       >
-        <h2 className="text-4xl md:text-5xl font-black text-center text-white drop-shadow-2xl leading-relaxed px-8">
-          Anh thích em <br />
-          Đồng ý làm người yêu anh nha
-        </h2>
+        <div className="relative">
+          <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-pink-500/40 via-purple-500/40 to-rose-500/40 animate-pulse"></div>
+          
+          <h2 className="relative text-4xl md:text-5xl font-black text-center leading-relaxed px-8"
+            style={{
+              background: 'linear-gradient(90deg, #fff, #ffc0cb, #fff, #ffc0cb, #fff)',
+              backgroundSize: '200% auto',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              animation: textVisible ? 'shimmerText 3s linear infinite' : 'none',
+              textShadow: '0 0 30px rgba(255, 192, 203, 0.5)',
+            }}
+          >
+            Anh thích em <br />
+            Đồng ý làm người yêu anh nha
+          </h2>
+        </div>
+        
         <div className="mt-6 flex justify-center gap-3 text-4xl">
-          <span className="animate-bounce" style={{ animationDelay: '0s' }}>💕</span>
-          <span className="animate-bounce" style={{ animationDelay: '0.1s' }}>💖</span>
-          <span className="animate-bounce" style={{ animationDelay: '0.2s' }}>💗</span>
-          <span className="animate-bounce" style={{ animationDelay: '0.3s' }}>💓</span>
-          <span className="animate-bounce" style={{ animationDelay: '0.4s' }}>💝</span>
+          {['💕', '💖', '💗', '💓', '💝'].map((heart, i) => (
+            <span 
+              key={i}
+              className="inline-block"
+              style={{
+                animation: textVisible ? `floatHeart 2s ease-in-out infinite` : 'none',
+                animationDelay: `${i * 0.2}s`,
+                opacity: textVisible ? 1 : 0,
+                transition: `opacity 0.5s ease-out ${0.5 + i * 0.1}s`,
+              }}
+            >
+              {heart}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -139,7 +163,7 @@ const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
             }}
             className="px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-pink-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
           >
-            ✅ Em đồng ý
+            💖 Em đồng ý
           </button>
         </div>
       )}
@@ -159,7 +183,7 @@ const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
             onClick={handleNoClick}
             className="px-8 py-4 bg-gradient-to-r from-gray-400 to-gray-500 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-gray-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
           >
-            ❌ Em không đồng ý
+            💔 Em không
           </button>
         </div>
       )}
@@ -188,8 +212,28 @@ const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
             justifyContent: 'center',
           }}
         >
-          ❌ Em không đồng ý
+          💔 Em không
         </button>
+      )}
+
+      {/* Time Button (Center Bottom) - below the two buttons */}
+      {showButtons && (
+        <div
+          className="absolute top-1/2 left-1/2 z-40"
+          style={{
+            transform: 'translate(-50%, 210px)',
+            opacity: showButtons ? 1 : 0,
+            transition: 'opacity 0.5s ease-out 0.7s',
+            pointerEvents: showButtons ? 'auto' : 'none'
+          }}
+        >
+          <button
+            onClick={onWait}
+            className="px-8 py-4 bg-gradient-to-r from-blue-400 to-indigo-500 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-blue-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
+          >
+            ⏰ Em cần thời gian
+          </button>
+        </div>
       )}
 
       <style>{`
@@ -199,6 +243,30 @@ const ConfessionPage = ({ onAccept }: ConfessionPageProps) => {
           }
           50% {
             transform: scale(1.1);
+          }
+        }
+        
+        @keyframes shimmerText {
+          0% {
+            background-position: 0% center;
+          }
+          100% {
+            background-position: 200% center;
+          }
+        }
+        
+        @keyframes floatHeart {
+          0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          25% {
+            transform: translateY(-10px) rotate(-5deg);
+          }
+          50% {
+            transform: translateY(-15px) rotate(0deg);
+          }
+          75% {
+            transform: translateY(-10px) rotate(5deg);
           }
         }
       `}</style>

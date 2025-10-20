@@ -262,7 +262,7 @@ const LetterPage = ({ onReadLetter }: LetterPageProps) => {
             onClick={handleNoClick}
             className="px-8 py-4 bg-gradient-to-r from-gray-400 to-gray-500 text-white text-xl font-bold rounded-full shadow-2xl hover:shadow-gray-300 hover:scale-110 transition-all duration-200 whitespace-nowrap"
           >
-            ❌ Không đọc
+            💔 Không đọc
           </button>
         </div>
       )}
@@ -291,7 +291,7 @@ const LetterPage = ({ onReadLetter }: LetterPageProps) => {
             justifyContent: 'center',
           }}
         >
-          ❌ Không đọc
+          💔 Không đọc
         </button>
       )}
 

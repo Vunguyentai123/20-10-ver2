@@ -9,10 +9,10 @@ const GreetingContent = ({ onLetterClick }: GreetingContentProps) => {
 
   const greetingLines = [
     { text: 'Chúc Ánh Dương', isFirst: true, delay: 0, charCount: 13 },
-    { text: 'Luôn xinh đẹp rạng rỡ như hoa tươi', delay: 1500, charCount: 35 },
-    { text: 'Mãi trẻ trung, duyên dáng qua năm tháng', delay: 3500, charCount: 39 },
-    { text: 'Tràn đầy hạnh phúc, yêu thương bên gia đình', delay: 5500, charCount: 44 },
-    { text: 'Luôn thành công, tỏa sáng trên con đường mình đã chọn', delay: 7500, charCount: 55 },
+    { text: 'Luôn xinh đẹp rạng rỡ như hoa tươi', delay: 1800, charCount: 35 },
+    { text: 'Mãi trẻ trung, duyên dáng qua năm tháng', delay: 3800, charCount: 39 },
+    { text: 'Tràn đầy hạnh phúc, yêu thương bên gia đình', delay: 5800, charCount: 44 },
+    { text: 'Luôn thành công, tỏa sáng trên con đường mình đã chọn', delay: 7800, charCount: 55 },
   ];
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const GreetingContent = ({ onLetterClick }: GreetingContentProps) => {
                       <span 
                         className="text-transparent bg-gradient-to-r from-pink-400 via-rose-400 to-red-400 bg-clip-text inline-block"
                         style={{
-                          animation: `revealText 1.3s steps(${line.charCount}) forwards`,
+                          animation: `revealText 1.5s steps(${line.charCount}) forwards`,
                         }}
                       >
                         Ánh Dương
@@ -114,7 +114,7 @@ const GreetingContent = ({ onLetterClick }: GreetingContentProps) => {
           ))}
         </div>
         {visibleLines >= greetingLines.length && (
-          <div className="mt-4 transform transition-all duration-1000 opacity-0 translate-y-10 text-center" style={{ animation: 'fadeInUp 1s ease-out 0.5s forwards' }}>
+          <div className="mt-4 transform transition-all duration-1000 opacity-0 translate-y-10 text-center" style={{ animation: 'fadeInUp 1s ease-out 2s forwards' }}>
             <p className="text-base md:text-lg italic text-white/90 font-light leading-relaxed">
               <span className="text-2xl text-pink-300">&quot;</span>
               Phụ nữ là những đóa hoa đẹp nhất của cuộc đời
